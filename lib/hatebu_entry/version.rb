@@ -1,3 +1,3 @@
-module HatebuEntry
+class HatebuEntry
   VERSION = "0.0.1"
 end
