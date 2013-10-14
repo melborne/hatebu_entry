@@ -87,8 +87,7 @@ describe HatebuEntry do
       before(:each) do
         uri = @hent.build_uri('?')
         3.times do |i|
-          h = {url: @hent.site, sort: @hent.sort, of: i*20}
-          @hent.instance_variable_set("@params", h)
+          @hent.params.update(of: i*20)
           mock_hatebu_entry_api(uri, "hatebu_entry#{i}.html")
         end
       end

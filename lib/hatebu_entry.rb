@@ -17,12 +17,10 @@ class HatebuEntry
     end
   end
 
-  attr_accessor :site, :sort, :page
+  attr_accessor :params
+  #sort: count, eid or hot
   def initialize(site, sort='count')
-    @site = site
-    @sort = sort #count, eid or hot
-    @page = 0
-    @params = {url: @site, sort: @sort, of: @page*20}
+    @params = {url: site, sort: sort, of: 0*20}
   end
 
   def entries(pages=0)
@@ -34,7 +32,7 @@ class HatebuEntry
       pages.times.map { |i|
         Thread.fork(i) do |_i|
           mutex.synchronize {
-            @params.update(of: _i*20)
+            params.update(of: _i*20)
             get_entries(:html)
           }
         end
