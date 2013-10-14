@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = HatebuEntry::VERSION
   spec.authors       = ["kyoendo"]
   spec.email         = ["postagie@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Get Hatena bookmark entries}
+  spec.summary       = %q{Get Hatena bookmark entries}
   spec.homepage      = ""
   spec.license       = "MIT"
 
