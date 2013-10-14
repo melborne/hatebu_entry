@@ -7,13 +7,41 @@ require 'cgi'
 require 'nokogiri'
 
 class HatebuEntry
+  # link: uri string
+  # count: integer
+  # title: string
   class Entry < Struct.new(:link, :count, :title)
     alias :url :link
     alias :bookmarks :count
     def date
       @date ||= Date.parse(link)
     rescue ArgumentError => e
-      abort "Date parse error: #{e}"
+      warn 'Url not contains date seeds'
+      nil
+    end
+
+    # to find same entry but other hosts
+    def homogeneous?(other)
+      return false if self == other
+      self.date == other.date &&
+          title_similar?(self.title, other.title)
+    end
+
+    def title_similar?(a, b)
+      a, b = [a, b].map { |str| str.gsub(/\w+/, '')[0..5] }
+      a == b
+    end
+
+    class MergeError < StandardError; end
+
+    # merge its count
+    def merge(other)
+      count = self.count + other.count
+      if block_given? && !yield(self, other)
+        raise MergeError, "They can't merge"
+      else
+        Entry.new(self.link, count, self.title)
+      end
     end
   end
 

@@ -105,3 +105,45 @@ describe HatebuEntry do
     end
   end
 end
+
+describe HatebuEntry::Entry do
+  let(:ent) { HatebuEntry::Entry }
+  before(:each) do
+    @ent1 = ent.new("http://d.hatena.ne.jp/keyesberry/20130304/p1", 20,"知って得する！５５のRubyのトリビアな記法")
+    @ent2 = ent.new("http://melborne.github.io/2013/03/04/ruby/", 10,"知って得する！５５のRubyのトリビアな記法")
+    @ent3 = ent.new("http://melborne.github.com/2013/03/05/ruby/", 10,"知って得する！５５のRubyのトリビアな記法")
+    @ent4 = ent.new("http://melborne.github.com/2013/03/04/ruby/", 10,"５５のRubyのトリビアな記法")
+  end
+
+  describe '#homogeneous?' do
+    it 'returns true when date and title are same' do
+      expect(@ent1.homogeneous? @ent2).to be_true
+    end
+
+    it 'returns false when title are same but date are not' do
+      expect(@ent1.homogeneous? @ent3).to be_false
+    end
+
+    it 'returns false when date are same but title are not' do
+      expect(@ent1.homogeneous? @ent4).to be_false
+    end
+  end
+
+  describe '#merge' do
+    it 'merge others count amount to self count' do
+      merged = @ent1.merge(@ent2)
+      expect(merged.count).to eq 30
+    end
+
+    context 'merge when these are homogeneous' do
+      it 'should success when they are homogeneous' do
+        merged = @ent1.merge(@ent2) { |a, b| a.homogeneous? b }
+        expect(merged.count).to eq 30
+      end
+
+      it 'should fail when they are not homogeneous' do
+        expect{ @ent1.merge(@ent3) { |a, b| a.homogeneous? b } }.to raise_error(HatebuEntry::Entry::MergeError)
+      end
+    end
+  end
+end
