@@ -32,6 +32,7 @@ class HatebuEntry
       a, b = [a, b].map { |str| str.gsub(/\w+/, '')[0..5] }
       a == b
     end
+    private :title_similar?
 
     class MergeError < StandardError; end
 
