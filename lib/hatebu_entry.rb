@@ -15,14 +15,14 @@ class HatebuEntry
     alias :bookmarks :count
     def date
       @date ||= Date.parse(link)
-    rescue ArgumentError => e
-      warn 'Url not contains date seeds'
+    rescue ArgumentError
       nil
     end
 
     # to find same entry but other hosts
     def homogeneous?(other)
       return false if self == other
+      return nil if [self, other].any? { |e| e.date.nil? }
       self.date == other.date &&
           title_similar?(self.title, other.title)
     end
@@ -34,7 +34,7 @@ class HatebuEntry
 
     class MergeError < StandardError; end
 
-    # merge its count
+    # Merge its count
     def merge(other)
       count = self.count + other.count
       if block_given? && !yield(self, other)
@@ -42,6 +42,23 @@ class HatebuEntry
       else
         Entry.new(self.link, count, self.title)
       end
+    end
+
+    # Merge two entry lists
+    def self.merge(ls_a, ls_b)
+      if [ls_a, ls_b].all? { |ls| ls.is_a? Entry }
+        raise ArgumentError, 'Arguments must be entry objects'
+      end
+      entries = []
+      ls_a.each do |a|
+        if m = ls_b.detect { |b| a.homogeneous? b }
+          entries.push a.merge(m)
+          ls_b.delete(m)
+        else
+          entries.push a
+        end
+      end
+      entries + ls_b
     end
   end
 
