@@ -26,6 +26,7 @@ class HatebuEntry
       self.date == other.date &&
           title_similar?(self.title, other.title)
     end
+    alias :same? :homogeneous?
 
     def title_similar?(a, b)
       a, b = [a, b].map { |str| str.gsub(/\w+/, '')[0..5] }

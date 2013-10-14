@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = HatebuEntry::VERSION
   spec.authors       = ["kyoendo"]
   spec.email         = ["postagie@gmail.com"]
-  spec.description   = %q{Get Hatena bookmark entries}
-  spec.summary       = %q{Get Hatena bookmark entries}
+  spec.description   = %q{Hatena bookmark entry list handler}
+  spec.summary       = %q{Hatena bookmark entry list handler}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.requied_ruby_version = '>= 1.9.3'
   spec.add_runtime_dependency 'nokogiri'
-
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
