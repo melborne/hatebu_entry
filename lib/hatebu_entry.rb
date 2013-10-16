@@ -1,4 +1,5 @@
 require "hatebu_entry/version"
+require 'hatebu_entry/command'
 require 'open-uri'
 require 'json'
 require 'date'

@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require 'hatebu_entry'
+
+HatebuEntry::Command.start(ARGV)
