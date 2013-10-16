@@ -2,8 +2,8 @@ require 'thor'
 
 class HatebuEntry::Command < Thor
   desc "get URL", "Get Hatena bookmark entries for URL"
-  option :pages, aliases:"-p", default:0
-  option :sort, aliases:"-s", default:"count"
+  option :pages, aliases:"-p", default:0, desc:"10 entries in default, takes 20 each by 1 or more"
+  option :sort, aliases:"-s", default:"count", desc:"count, hot or eid are acceptable"
   def get(url)
     entries = HatebuEntry.new(url, options[:sort])
                          .entries(options[:pages].to_i)
