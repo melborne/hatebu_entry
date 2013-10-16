@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = HatebuEntry::VERSION
   spec.authors       = ["kyoendo"]
   spec.email         = ["postagie@gmail.com"]
-  spec.description   = %q{Hatena bookmark entry list handler}
+  spec.description   = %q{HatebuEntry is a tool for retrieving and handling Hatena Bookmark entry lists written in Ruby.}
   spec.summary       = %q{Hatena bookmark entry list handler}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/melborne/hatebu_entry"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -24,5 +24,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "fakeweb", ["~> 1.3"]
+  spec.add_development_dependency "fakeweb", "~> 1.3"
 end
