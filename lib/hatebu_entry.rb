@@ -20,6 +20,10 @@ class HatebuEntry
       nil
     end
 
+    def to_s
+      "%5d: %s (%s)" % [count, title, link]
+    end
+
     # to find same entry but other hosts
     def homogeneous?(other)
       return false if self == other
