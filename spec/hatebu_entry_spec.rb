@@ -146,4 +146,21 @@ describe HatebuEntry::Entry do
       end
     end
   end
+
+  describe ".merge" do
+    it "merges same entries" do
+      merged = HatebuEntry::Entry.merge([@ent1], [@ent2]) 
+      expect(merged.size).to eq 1
+    end
+
+    it "don't merge diff entries" do
+      merged = HatebuEntry::Entry.merge([@ent1], [@ent4]) 
+      expect(merged.size).to eq 2
+    end
+
+    it "merge only same entries" do
+      merged = HatebuEntry::Entry.merge([@ent1], [@ent4, @ent2]) 
+      expect(merged.size).to eq 2
+    end
+  end
 end
