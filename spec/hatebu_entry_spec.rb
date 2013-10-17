@@ -162,5 +162,10 @@ describe HatebuEntry::Entry do
       merged = HatebuEntry::Entry.merge([@ent1], [@ent4, @ent2]) 
       expect(merged.size).to eq 2
     end
+
+    it "sort merge result in desc count order" do
+      merged = HatebuEntry::Entry.merge([@ent4, @ent2], [@ent1]) 
+      expect(merged.first.count).to eq 30
+    end
   end
 end

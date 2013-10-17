@@ -65,7 +65,7 @@ class HatebuEntry
           entries.push a
         end
       end
-      entries + ls_b
+      (entries + ls_b).sort_by { |ent| -ent.count }
     end
   end
 
