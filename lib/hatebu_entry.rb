@@ -127,7 +127,7 @@ class HatebuEntry
   end
 
   def parse_jsonp(jsonp)
-    jsonp.scan(/{.+?}/).map { |data| JSON.parse data }
+    jsonp.scan(/{\s*\".+?\"\s*}/).map { |data| JSON.parse data }
   end
 
   def parse_html(html)
